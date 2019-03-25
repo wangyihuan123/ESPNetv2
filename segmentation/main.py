@@ -6,6 +6,7 @@ from cnn import SegmentationModel as net
 import torch.backends.cudnn as cudnn
 import Transforms as myTransforms
 import DataSet as myDataLoader
+import time
 from argparse import ArgumentParser
 from train_utils import train, val, netParams, save_checkpoint, poly_lr_scheduler
 import torch.optim.lr_scheduler
@@ -16,6 +17,9 @@ __author__ = "Sachin Mehta"
 __license__ = "MIT"
 __maintainer__ = "Sachin Mehta"
 #============================================
+
+width_res = 800
+height_res = 800
 
 def trainValidateSegmentation(args):
     '''
@@ -40,13 +44,16 @@ def trainValidateSegmentation(args):
 
     # check if processed data file exists or not
     if not os.path.isfile(args.cached_data_file):
-        dataLoad = ld.LoadData(args.data_dir, args.classes, args.cached_data_file)
+        print(args)
+        dataLoad = ld.LoadData(args.image_data_dir, args.classes, args.cached_data_file,
+                               label_data_dir=args.label_data_dir, txt_data_dir=args.txt_data_dir)
         data = dataLoad.processData()
         if data is None:
             print('Error while pickling data. Please check.')
             exit(-1)
     else:
         data = pickle.load(open(args.cached_data_file, "rb"))
+        print("Pickling data", args.cached_data_file)
 
 
 
@@ -76,6 +83,7 @@ def trainValidateSegmentation(args):
         myTransforms.Normalize(mean=data['mean'], std=data['std']),
         myTransforms.RandomCropResize(size=(args.inWidth, args.inHeight)),
         myTransforms.RandomFlip(),
+        myTransforms.RandomCrop(64),
         #myTransforms.RandomCrop(64).
         myTransforms.ToTensor(args.scaleIn),
         #
@@ -116,7 +124,7 @@ def trainValidateSegmentation(args):
 
     valDataset = myTransforms.Compose([
         myTransforms.Normalize(mean=data['mean'], std=data['std']),
-        myTransforms.Scale(1024, 512),
+        myTransforms.Scale(width_res, height_res),
         myTransforms.ToTensor(args.scaleIn),
         #
     ])
@@ -140,6 +148,7 @@ def trainValidateSegmentation(args):
         myDataLoader.MyDataset(data['trainIm'], data['trainAnnot'], transform=trainDataset_scale3),
         batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers, pin_memory=True)
 
+    print("trainLoader_scale4")
     trainLoader_scale4 = torch.utils.data.DataLoader(
         myDataLoader.MyDataset(data['trainIm'], data['trainAnnot'], transform=trainDataset_scale4),
         batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers, pin_memory=True)
@@ -197,13 +206,18 @@ def trainValidateSegmentation(args):
 
         # train for one epoch
         # We consider 1 epoch with all the training data (at different scales)
+        print("trainLoader_scale1")
         train(args, trainLoader_scale1, model, criteria, optimizer, epoch)
+        print("trainLoader_scale2")
         train(args, trainLoader_scale2, model, criteria, optimizer, epoch)
+        print("trainLoader_scale4")
         train(args, trainLoader_scale4, model, criteria, optimizer, epoch)
+        print("trainLoader_scale3")
         train(args, trainLoader_scale3, model, criteria, optimizer, epoch)
         lossTr, overall_acc_tr, per_class_acc_tr, per_class_iu_tr, mIOU_tr = train(args, trainLoader, model, criteria, optimizer, epoch)
 
         # evaluate on validation set
+        print("valLoader")
         lossVal, overall_acc_val, per_class_acc_val, per_class_iu_val, mIOU_val = val(args, valLoader, model, criteria)
 
         is_best = mIOU_val > best_val
@@ -236,28 +250,38 @@ def trainValidateSegmentation(args):
         logger.write("\n%d\t\t%.4f\t\t%.4f\t\t%.4f\t\t%.4f\t\t%.7f" % (epoch, lossTr, lossVal, mIOU_tr, mIOU_val, lr))
         logger.flush()
         print("Epoch : " + str(epoch) + ' Details')
-        print("\nEpoch No.: %d\tTrain Loss = %.4f\tVal Loss = %.4f\t mIOU(tr) = %.4f\t mIOU(val) = %.4f" % (epoch, lossTr, lossVal, mIOU_tr, mIOU_val))
+        print("\nEpoch No.: %d\tTrain Loss = %.4f\tVal Loss = %.4f\t mIOU(tr) = %.4f\t mIOU(val) = %.4f" %
+              (epoch, lossTr, lossVal, mIOU_tr, mIOU_val))
     logger.close()
 
+
+'''
+python main.py --txt_data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/ \
+--image_data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/train1k_image \
+--label_data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/train1k_seganno --classes 2
+'''
 
 if __name__ == '__main__':
 
     parser = ArgumentParser()
     parser.add_argument('--model', default="ESPNetv2", help='Model name')
-    parser.add_argument('--data_dir', default="./city", help='Data directory')
-    parser.add_argument('--inWidth', type=int, default=1024, help='Width of RGB image')
-    parser.add_argument('--inHeight', type=int, default=512, help='Height of RGB image')
+    parser.add_argument('--txt_data_dir', default="./data", help='txt Data directory')
+    parser.add_argument('--image_data_dir', default="./city", help='Image Data directory')
+    parser.add_argument('--label_data_dir', default="./city", help='Label Data directory')
+
+    parser.add_argument('--inWidth', type=int, default=800, help='Width of RGB image')
+    parser.add_argument('--inHeight', type=int, default=800, help='Height of RGB image')
     parser.add_argument('--scaleIn', type=int, default=1, help='For ESPNet-C, scaleIn=8. For ESPNet, scaleIn=1')
     parser.add_argument('--max_epochs', type=int, default=300, help='Max. number of epochs')
     parser.add_argument('--num_workers', type=int, default=12, help='No. of parallel threads')
-    parser.add_argument('--batch_size', type=int, default=10, help='Batch size. 12 for ESPNet-C and 6 for ESPNet. '
+    parser.add_argument('--batch_size', type=int, default=6, help='Batch size. 12 for ESPNet-C and 6 for ESPNet. '
                                                                    'Change as per the GPU memory')
     parser.add_argument('--step_loss', type=int, default=100, help='Decrease learning rate after how many epochs.')
     parser.add_argument('--lr', type=float, default=5e-4, help='Initial learning rate')
     parser.add_argument('--savedir', default='./results_espnetv2_', help='directory to save the results')
     parser.add_argument('--resume', type=str, default='', help='Use this flag to load last checkpoint for training')  #
-    parser.add_argument('--classes', type=int, default=20, help='No of classes in the dataset. 20 for cityscapes')
-    parser.add_argument('--cached_data_file', default='city.p', help='Cached file name')
+    parser.add_argument('--classes', type=int, default=2, help='No of classes in the dataset. 2 for c3log')
+    parser.add_argument('--cached_data_file', default='c3log.p', help='Cached file name')
     parser.add_argument('--logFile', default='trainValLog.txt', help='File that stores the training and validation logs')
     parser.add_argument('--pretrained', default='', help='Pretrained ESPNetv2 weights.')
     parser.add_argument('--s', default=1, type=float, help='scaling parameter')

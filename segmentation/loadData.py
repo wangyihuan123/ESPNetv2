@@ -13,14 +13,19 @@ class LoadData:
     '''
     Class to laod the data
     '''
-    def __init__(self, data_dir, classes, cached_data_file, normVal=1.10):
+    def __init__(self, image_data_dir, classes, cached_data_file, normVal=1.10, label_data_dir=None, txt_data_dir="./data"):
         '''
         :param data_dir: directory where the dataset is kept
         :param classes: number of classes in the dataset
         :param cached_data_file: location where cached file has to be stored
         :param normVal: normalization value, as defined in ERFNet paper
         '''
-        self.data_dir = data_dir
+        self.image_data_dir = image_data_dir
+        if label_data_dir is None:
+            self.label_data_dir = image_data_dir
+        else:
+            self.label_data_dir = label_data_dir
+        self.txt_dir = txt_data_dir
         self.classes = classes
         self.classWeights = np.ones(self.classes, dtype=np.float32)
         self.normVal = normVal
@@ -42,7 +47,7 @@ class LoadData:
         for i in range(self.classes):
             self.classWeights[i] = 1 / (np.log(self.normVal + normHist[i]))
 
-    def readFile(self, fileName, trainStg=False):
+    def readFile(self, fileName, image_data_dir, label_data_dir, trainStg=False):
         '''
         Function to read the data
         :param fileName: file that stores the image locations
@@ -55,15 +60,19 @@ class LoadData:
         no_files = 0
         min_val_al = 0
         max_val_al = 0
-        with open(self.data_dir + '/' + fileName, 'r') as textFile:
+        with open(self.txt_dir + '/' + fileName, 'r') as textFile:
             for line in textFile:
                 # we expect the text file to contain the data in following format
                 # <RGB Image>, <Label Image>
-                line_arr = line.split(',')
-                img_file = ((self.data_dir).strip() + '/' + line_arr[0].strip()).strip()
-                label_file = ((self.data_dir).strip() + '/' + line_arr[1].strip()).strip()
+                line_arr = line.split()[0]
+                img_file = image_data_dir + '/' + line_arr
+                label_file = label_data_dir + '/' + line_arr
+                # print(label_file)
+                # print(img_file)
                 label_img = cv2.imread(label_file, 0)
+                print(label_file)
                 unique_values = np.unique(label_img)
+                # print(unique_values)
                 # if you have 255 label in your label files, map it to the background class (19) in the Cityscapes dataset
                 if 255 in unique_values:
 	                label_img[label_img==255] = 19
@@ -102,6 +111,8 @@ class LoadData:
                     exit()
                 no_files += 1
 
+                print(no_files)
+
         if trainStg == True:
             # divide the mean and std values by the sample space size
             self.mean /= no_files
@@ -118,12 +129,12 @@ class LoadData:
         :return:
         '''
         print('Processing training data')
-        return_val = self.readFile('train.txt', True)
+        return_val = self.readFile('train.txt', self.image_data_dir , self.label_data_dir, True)
 
         print('Processing validation data')
-        return_val1 = self.readFile('val.txt')
+        return_val1 = self.readFile('val.txt', self.txt_dir + "/val100_image", self.txt_dir + "/val100_seganno")
 
-        print('Pickling data')
+        print('loadData: Pickling data')
         if return_val == 0 and return_val1 == 0:
             data_dict = dict()
             data_dict['trainIm'] = self.trainImList
