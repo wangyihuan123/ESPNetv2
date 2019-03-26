@@ -26,8 +26,8 @@ which mean, 24k is actually 23,379 images in trainval
 
 all_train_list = "/media/benw/Data/data/aws_log_data/train24k_833x833/trainlist24k.txt"
 all_val_list = "/media/benw/Data/data/aws_log_data/vallist.txt"
-width_res = 800
-height_res = 800
+width_res = 1024
+height_res = 512
 
 DATA_MAIN_DIR = "/media/benw/Data/data/aws_log_data/data"
 DATA_LOG_DIR = "logdata"
@@ -35,24 +35,24 @@ DATA_META_DIR = "metadata"
 DATA_TEST_LOG_DIR = "test_logdata"
 DATA_TEST_META_DIR = "test_metadata"
 METADATA_EXTN = "*.mta.json"
-max_process_num = 100
+max_process_num = 1000
 
-dataset_dir = "/media/benw/Data/data/aws_log_data/train1k_800x800"
+dataset_dir = "/media/benw/Data/data/aws_log_data/train1k_1024x512"
 ##### train ####
-# fname = all_train_list
-# sample_img_dst_dir = dataset_dir + "/train1k_image"
-# DATA_TRAINVAL_SEG_ANNO_DIR = "train1k_seganno"
-# seg_anno_dir = os.path.join(dataset_dir, DATA_TRAINVAL_SEG_ANNO_DIR)
-# meta_dir = os.path.join(DATA_MAIN_DIR, DATA_META_DIR)
-# img_dir = DATA_LOG_DIR
+fname = all_train_list
+sample_img_dst_dir = dataset_dir + "/train1k_image"
+DATA_TRAINVAL_SEG_ANNO_DIR = "train1k_seganno"
+seg_anno_dir = os.path.join(dataset_dir, DATA_TRAINVAL_SEG_ANNO_DIR)
+meta_dir = os.path.join(DATA_MAIN_DIR, DATA_META_DIR)
+img_dir = DATA_LOG_DIR
 
 ##### val #####
-fname = all_val_list
-sample_img_dst_dir = dataset_dir + "/val100_image"
-DATA_VAL_SEG_ANNO_DIR = "val100_seganno"
-seg_anno_dir = os.path.join(dataset_dir, DATA_VAL_SEG_ANNO_DIR)
-meta_dir = os.path.join(DATA_MAIN_DIR, DATA_TEST_META_DIR)
-img_dir = DATA_TEST_LOG_DIR
+# fname = all_val_list
+# sample_img_dst_dir = dataset_dir + "/val100_image"
+# DATA_VAL_SEG_ANNO_DIR = "val100_seganno"
+# seg_anno_dir = os.path.join(dataset_dir, DATA_VAL_SEG_ANNO_DIR)
+# meta_dir = os.path.join(DATA_MAIN_DIR, DATA_TEST_META_DIR)
+# img_dir = DATA_TEST_LOG_DIR
 
 
 

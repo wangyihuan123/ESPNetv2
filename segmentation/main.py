@@ -10,7 +10,8 @@ import time
 from argparse import ArgumentParser
 from train_utils import train, val, netParams, save_checkpoint, poly_lr_scheduler
 import torch.optim.lr_scheduler
-
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 #============================================
 __author__ = "Sachin Mehta"
@@ -18,8 +19,8 @@ __license__ = "MIT"
 __maintainer__ = "Sachin Mehta"
 #============================================
 
-width_res = 800
-height_res = 800
+width_res = 1024
+height_res = 512
 
 def trainValidateSegmentation(args):
     '''
@@ -83,7 +84,6 @@ def trainValidateSegmentation(args):
         myTransforms.Normalize(mean=data['mean'], std=data['std']),
         myTransforms.RandomCropResize(size=(args.inWidth, args.inHeight)),
         myTransforms.RandomFlip(),
-        myTransforms.RandomCrop(64),
         #myTransforms.RandomCrop(64).
         myTransforms.ToTensor(args.scaleIn),
         #
@@ -214,6 +214,7 @@ def trainValidateSegmentation(args):
         train(args, trainLoader_scale4, model, criteria, optimizer, epoch)
         print("trainLoader_scale3")
         train(args, trainLoader_scale3, model, criteria, optimizer, epoch)
+        print("trainLoader")
         lossTr, overall_acc_tr, per_class_acc_tr, per_class_iu_tr, mIOU_tr = train(args, trainLoader, model, criteria, optimizer, epoch)
 
         # evaluate on validation set
@@ -256,7 +257,7 @@ def trainValidateSegmentation(args):
 
 
 '''
-python main.py --txt_data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/ \
+python main.py  --inWidth 1024 --inHeight 512 --txt_data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/ \
 --image_data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/train1k_image \
 --label_data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/train1k_seganno --classes 2
 '''

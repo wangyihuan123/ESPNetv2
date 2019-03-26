@@ -5,11 +5,15 @@ __maintainer__ = "Sachin Mehta"
 #============================================
 import torch
 from torch import nn
+import  sys
+sys.path.append("../")
 
 from cnn.Model import EESPNet, EESP
+from cnn.cnn_utils import *
 import os
 import torch.nn.functional as F
-from cnn.cnn_utils import *
+import numpy as np
+
 
 class EESPNet_Seg(nn.Module):
     def __init__(self, classes=20, s=1, pretrained=None, gpus=1):
@@ -55,7 +59,12 @@ class EESPNet_Seg(nn.Module):
         out_l1, out_l2, out_l3, out_l4 = self.net(input, seg=True)
         out_l4_proj = self.proj_L4_C(out_l4)
         up_l4_to_l3 = F.interpolate(out_l4_proj, scale_factor=2, mode='bilinear', align_corners=True)
-        merged_l3_upl4 = self.pspMod(torch.cat([out_l3, up_l4_to_l3], 1))
+
+        #print(out_l3.size(), up_l4_to_l3.size())
+
+        mytorch = torch.cat([out_l3, up_l4_to_l3], 1)
+        merged_l3_upl4 = self.pspMod(mytorch)
+
         proj_merge_l3_bef_act = self.project_l3(merged_l3_upl4)
         proj_merge_l3 = self.act_l3(proj_merge_l3_bef_act)
         out_up_l3 = F.interpolate(proj_merge_l3, scale_factor=2, mode='bilinear', align_corners=True)
@@ -69,8 +78,17 @@ class EESPNet_Seg(nn.Module):
 
 
 if __name__ == '__main__':
-    input = torch.Tensor(1, 3, 512, 1024).cuda()
-    net = EESPNet_Seg(classes=20, s=2).cuda()
+    input = torch.Tensor(1, 3, 800, 800).cuda()
+    net = EESPNet_Seg(classes=2, s=2).cuda()
+    # input = torch.Tensor(1, 3, 512, 1024).cuda()
+    # net = EESPNet_Seg(classes=20, s=2).cuda()
     out_x_8 = net(input)
-    print(out_x_8.size())
+
+    len_outx8 = len(out_x_8)
+    print(len_outx8)
+    for i in range(len_outx8):
+        print(out_x_8[i])
+        print(torch.unique(out_x_8[i]))
+        print(out_x_8[i].size())
+        print("-----------------")
 
