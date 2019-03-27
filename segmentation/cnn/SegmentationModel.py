@@ -3,21 +3,18 @@ __author__ = "Sachin Mehta"
 __license__ = "MIT"
 __maintainer__ = "Sachin Mehta"
 #============================================
-import torch
-from torch import nn
-import  sys
-sys.path.append("../")
 
-from cnn.Model import EESPNet, EESP
-from cnn.cnn_utils import *
+
+from Model import EESPNet, EESP
+from cnn_utils import *
 import os
 import torch.nn.functional as F
 import numpy as np
-
+from torch import nn
 
 class EESPNet_Seg(nn.Module):
     def __init__(self, classes=20, s=1, pretrained=None, gpus=1):
-        super().__init__()
+        super(EESPNet_Seg, self).__init__()
         classificationNet = EESPNet(classes=1000, s=s)
         if gpus >=1:
             classificationNet = nn.DataParallel(classificationNet)

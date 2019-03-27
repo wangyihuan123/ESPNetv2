@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c5fb6078-d4ec-4103-b9d8-3e324cff7d91" name="Default" comment="failed to train for c3log&#10;invalid argument 0: Sizes of tensors must match except in dimension 1. Got 126 and 125 in dimension 2">
-      <change beforePath="" afterPath="$PROJECT_DIR$/segmentation/eval_c3log.py" />
+    <list default="true" id="c5fb6078-d4ec-4103-b9d8-3e324cff7d91" name="Default" comment="solve the issue by changing the input images resolution">
+      <change beforePath="" afterPath="$PROJECT_DIR$/segmentation/cnn/__init__.py" />
+      <change beforePath="$PROJECT_DIR$/.idea/ESPNetv2.iml" afterPath="$PROJECT_DIR$/.idea/ESPNetv2.iml" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/segmentation/cnn/Model.py" afterPath="$PROJECT_DIR$/segmentation/cnn/Model.py" />
       <change beforePath="$PROJECT_DIR$/segmentation/cnn/SegmentationModel.py" afterPath="$PROJECT_DIR$/segmentation/cnn/SegmentationModel.py" />
+      <change beforePath="$PROJECT_DIR$/segmentation/cnn/cnn_utils.py" afterPath="$PROJECT_DIR$/segmentation/cnn/cnn_utils.py" />
       <change beforePath="$PROJECT_DIR$/segmentation/data/prepareImagas.py" afterPath="$PROJECT_DIR$/segmentation/data/prepareImagas.py" />
-      <change beforePath="$PROJECT_DIR$/segmentation/main.py" afterPath="$PROJECT_DIR$/segmentation/main.py" />
+      <change beforePath="$PROJECT_DIR$/segmentation/eval_c3log.py" afterPath="$PROJECT_DIR$/segmentation/eval_c3log.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,33 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/segmentation/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Transforms.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/segmentation/Transforms.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="eval_c3log.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/segmentation/eval_c3log.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="71" column="51" lean-forward="true" selection-start-line="71" selection-start-column="51" selection-end-line="71" selection-end-column="51" />
+            <state relative-caret-position="198">
+              <caret line="65" column="34" lean-forward="true" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -51,39 +33,58 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SegmentationModel.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/segmentation/cnn/SegmentationModel.py">
+      <file leaf-file-name="prepareImagas.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/segmentation/data/prepareImagas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="62" column="9" lean-forward="false" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
+            <state relative-caret-position="-2005">
+              <caret line="49" column="20" lean-forward="true" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="c_0a8c02b9-9b58-4033-8b44-86942857e60c_10020-mycrop.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/segmentation/results_c3log/c_0a8c02b9-9b58-4033-8b44-86942857e60c_10020-mycrop.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="SegmentationModel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/segmentation/cnn/SegmentationModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="57" column="21" lean-forward="false" selection-start-line="57" selection-start-column="21" selection-end-line="57" selection-end-column="21" />
+              <folding>
+                <element signature="e#174#205#0" expanded="true" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="0a8c02b9-9b58-4033-8b44-86942857e60c_10020-mycrop.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/segmentation/results_c3log/0a8c02b9-9b58-4033-8b44-86942857e60c_10020-mycrop.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="cnn_utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/segmentation/cnn/cnn_utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="53" column="33" lean-forward="false" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/segmentation/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="FIRST">
-              <first_editor relative-caret-position="378">
-                <caret line="21" column="3" lean-forward="false" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
-                <folding />
-              </first_editor>
-              <second_editor />
+      <file leaf-file-name="conv.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/anaconda3/envs/2.7.pytorch/lib/python2.7/site-packages/torch/nn/modules/conv.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="308" column="34" lean-forward="false" selection-start-line="308" selection-start-column="23" selection-end-line="308" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Model.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/segmentation/cnn/Model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="605">
+              <caret line="189" column="62" lean-forward="false" selection-start-line="189" selection-start-column="62" selection-end-line="189" selection-end-column="62" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -99,11 +100,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>19</find>
-      <find>background</find>
-      <find>print</find>
-      <find>image_data_dir</find>
-      <find>166</find>
       <find>valLoader</find>
       <find>load_state_dict</find>
       <find>strict=False</find>
@@ -127,7 +123,12 @@
       <find>data_dir</find>
       <find>img</find>
       <find>img_out</find>
+      <find>nn</find>
       <find>trainDataset_main</find>
+      <find>config</find>
+      <find>nOut</find>
+      <find>EESPNet</find>
+      <find>imread</find>
       <find>colored</find>
     </findStrings>
     <replaceStrings>
@@ -146,10 +147,13 @@
         <option value="$PROJECT_DIR$/segmentation/data/train.txt" />
         <option value="$PROJECT_DIR$/segmentation/data/prepareTxtlist.py" />
         <option value="$PROJECT_DIR$/segmentation/loadData.py" />
-        <option value="$PROJECT_DIR$/segmentation/data/prepareImagas.py" />
         <option value="$PROJECT_DIR$/segmentation/main.py" />
         <option value="$PROJECT_DIR$/segmentation/val_c3log.py" />
+        <option value="$PROJECT_DIR$/segmentation/cnn/__init__.py" />
         <option value="$PROJECT_DIR$/segmentation/cnn/SegmentationModel.py" />
+        <option value="$PROJECT_DIR$/segmentation/cnn/Model.py" />
+        <option value="$PROJECT_DIR$/segmentation/cnn/cnn_utils.py" />
+        <option value="$PROJECT_DIR$/segmentation/data/prepareImagas.py" />
         <option value="$PROJECT_DIR$/segmentation/eval_c3log.py" />
       </list>
     </option>
@@ -201,13 +205,19 @@
               <item name="ESPNetv2" type="b2602c69:ProjectViewProjectNode" />
               <item name="ESPNetv2" type="462c0819:PsiDirectoryNode" />
               <item name="segmentation" type="462c0819:PsiDirectoryNode" />
-              <item name="cnn" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ESPNetv2" type="b2602c69:ProjectViewProjectNode" />
               <item name="ESPNetv2" type="462c0819:PsiDirectoryNode" />
               <item name="segmentation" type="462c0819:PsiDirectoryNode" />
               <item name="results_c3log" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ESPNetv2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ESPNetv2" type="462c0819:PsiDirectoryNode" />
+              <item name="segmentation" type="462c0819:PsiDirectoryNode" />
+              <item name="results_espnetv2_1" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -264,7 +274,14 @@
       <option name="project" value="LOCAL" />
       <updated>1553549486416</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="solve the issue by changing the input images resolution">
+      <created>1553570078745</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1553570078745</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -327,7 +344,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="failed to train for c3log&#10;invalid argument 0: Sizes of tensors must match except in dimension 1. Got 126 and 125 in dimension 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="failed to train for c3log&#10;invalid argument 0: Sizes of tensors must match except in dimension 1. Got 126 and 125 in dimension 2" />
+    <MESSAGE value="solve the issue by changing the input images resolution" />
+    <option name="LAST_COMMIT_MESSAGE" value="solve the issue by changing the input images resolution" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -463,16 +481,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/segmentation/data/prepareImagas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/segmentation/train_utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="453">
@@ -587,7 +595,7 @@
         <state relative-caret-position="234">
           <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="38" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -607,23 +615,118 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/segmentation/cnn/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/2.7.pytorch/lib/python2.7/site-packages/torch/nn/modules/module.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3618">
+          <caret line="22" column="6" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/2.7.pytorch/lib/python2.7/site-packages/torch/nn/parameter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="4" column="6" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/2.7.pytorch/lib/python2.7/site-packages/torch/tensor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-630">
+          <caret line="19" column="6" lean-forward="false" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/2.7.pytorch/lib/python2.7/site-packages/torch/nn/modules/conv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="308" column="34" lean-forward="false" selection-start-line="308" selection-start-column="23" selection-end-line="308" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/segmentation/cnn/Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="605">
+          <caret line="189" column="62" lean-forward="false" selection-start-line="189" selection-start-column="62" selection-end-line="189" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/segmentation/cnn/cnn_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="53" column="33" lean-forward="false" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/segmentation/cnn/SegmentationModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="57" column="21" lean-forward="false" selection-start-line="57" selection-start-column="21" selection-end-line="57" selection-end-column="21" />
+          <folding>
+            <element signature="e#174#205#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/segmentation/results_c3log/c_0a8c02b9-9b58-4033-8b44-86942857e60c_1984-mycrop.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/segmentation/results_c3log/c_0a8c02b9-9b58-4033-8b44-86942857e60c_10094-mycrop.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/segmentation/results_c3log/c_0a8c02b9-9b58-4033-8b44-86942857e60c_1914-mycrop.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/segmentation/results_c3log/c_0a8c02b9-9b58-4033-8b44-86942857e60c_10020-mycrop.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/segmentation/cnn/SegmentationModel.py">
+    <entry file="file://$PROJECT_DIR$/segmentation/test.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/segmentation/data/prepareImagas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="62" column="9" lean-forward="false" selection-start-line="62" selection-start-column="9" selection-end-line="62" selection-end-column="9" />
+        <state relative-caret-position="-2005">
+          <caret line="49" column="20" lean-forward="true" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/segmentation/43f1f001-5207-43fe-8281-7c06e0f64fe5_4196-mycrop.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/segmentation/eval_c3log.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="71" column="51" lean-forward="true" selection-start-line="71" selection-start-column="51" selection-end-line="71" selection-end-column="51" />
+        <state relative-caret-position="198">
+          <caret line="65" column="34" lean-forward="true" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

@@ -1,8 +1,9 @@
 from torch.nn import init
 import torch.nn.functional as F
-from cnn.cnn_utils import *
+from cnn_utils import *
 import math
 import torch
+import torch.nn
 
 __author__ = "Sachin Mehta"
 __version__ = "1.0.1"
@@ -23,7 +24,7 @@ class EESP(nn.Module):
         :param r_lim: A maximum value of receptive field allowed for EESP block
         :param g: number of groups to be used in the feature map reduction step.
         '''
-        super().__init__()
+        super(EESP, self).__init__()
         self.stride = stride
         n = int(nOut / k)
         n1 = nOut - (k - 1) * n
@@ -51,6 +52,7 @@ class EESP(nn.Module):
             d_rate = map_receptive_ksize[self.k_sizes[i]]
             self.spp_dw.append(CDilated(n, n, kSize=3, stride=stride, groups=n, d=d_rate))
             #self.bn.append(nn.BatchNorm2d(n))
+        nOut = int(nOut)
         self.conv_1x1_exp = CB(nOut, nOut, 1, 1, groups=k)
         self.br_after_cat = BR(nOut)
         self.module_act = nn.PReLU(nOut)
@@ -111,7 +113,7 @@ class DownSampler(nn.Module):
             :param r_lim: A maximum value of receptive field allowed for EESP block
             :param g: number of groups to be used in the feature map reduction step.
         '''
-        super().__init__()
+        super(DownSampler, self).__init__()
         nout_new = nout - nin
         self.eesp = EESP(nin, nout_new, stride=2, k=k, r_lim=r_lim, down_method='avg')
         self.avg = nn.AvgPool2d(kernel_size=3, padding=1, stride=2)
@@ -152,7 +154,7 @@ class EESPNet(nn.Module):
         :param classes: number of classes in the dataset. Default is 20 for the cityscapes
         :param s: factor that scales the number of output feature maps
         '''
-        super().__init__()
+        super(EESPNet, self).__init__()
         reps = [0, 3, 7, 3]  # how many times EESP blocks should be repeated.
         channels = 3
 
@@ -184,6 +186,9 @@ class EESPNet(nn.Module):
         self.input_reinforcement = True
         assert len(K) == len(r_lim), 'Length of branching factor array and receptive field array should be the same.'
 
+        # https://github.com/tengshaofeng/ResidualAttentionNetwork-pytorch/issues/3
+        # In python2 int/int=int, but in python3 int/int=float
+        config = [int(i) for i in config]
         self.level1 = CBR(channels, config[0], 3, 2)  # 112 L1
 
         self.level2_0 = DownSampler(config[0], config[1], k=K[0], r_lim=r_lim[0], reinf=self.input_reinforcement)  # out = 56
