@@ -132,7 +132,7 @@ class LoadData:
         return_val = self.readFile('train.txt', self.image_data_dir , self.label_data_dir, True)
 
         print('Processing validation data')
-        return_val1 = self.readFile('val.txt', self.txt_dir + "/val100_image", self.txt_dir + "/val100_seganno")
+        return_val1 = self.readFile('val.txt', self.txt_dir + "val_image", self.txt_dir + "/val_seganno")
 
         print('loadData: Pickling data')
         if return_val == 0 and return_val1 == 0:

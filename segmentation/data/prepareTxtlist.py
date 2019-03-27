@@ -5,10 +5,8 @@ import sys, os
 
 
 # However, cmd is easier:
-# ls -1 train1k_image > trainlist_imge.txt
-# ls -1 train1k_seganno > annolist.txt
-
-# ls -1 val100_image/  > vallist_img.txt
+# ls -1 train24k_image > train.txt
+# ls -1 val_image/  > val.txt
 
 
 

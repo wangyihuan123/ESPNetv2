@@ -35,24 +35,24 @@ DATA_META_DIR = "metadata"
 DATA_TEST_LOG_DIR = "test_logdata"
 DATA_TEST_META_DIR = "test_metadata"
 METADATA_EXTN = "*.mta.json"
-max_process_num = 1000
+max_process_num = sys.maxsize
 
-dataset_dir = "/media/benw/Data/data/aws_log_data/train1k_1024x512"
+dataset_dir = "/media/benw/Data/data/aws_log_data/train24k_1024x512"
 ##### train ####
-fname = all_train_list
-sample_img_dst_dir = dataset_dir + "/train1k_image"
-DATA_TRAINVAL_SEG_ANNO_DIR = "train1k_seganno"
+'''fname = all_train_list
+sample_img_dst_dir = dataset_dir + "/train24k_image"
+DATA_TRAINVAL_SEG_ANNO_DIR = "train24k_seganno"
 seg_anno_dir = os.path.join(dataset_dir, DATA_TRAINVAL_SEG_ANNO_DIR)
 meta_dir = os.path.join(DATA_MAIN_DIR, DATA_META_DIR)
 img_dir = DATA_LOG_DIR
-
+'''
 ##### val #####
-# fname = all_val_list
-# sample_img_dst_dir = dataset_dir + "/val100_image"
-# DATA_VAL_SEG_ANNO_DIR = "val100_seganno"
-# seg_anno_dir = os.path.join(dataset_dir, DATA_VAL_SEG_ANNO_DIR)
-# meta_dir = os.path.join(DATA_MAIN_DIR, DATA_TEST_META_DIR)
-# img_dir = DATA_TEST_LOG_DIR
+fname = all_val_list
+sample_img_dst_dir = dataset_dir + "/val_image"
+DATA_VAL_SEG_ANNO_DIR = "val_seganno"
+seg_anno_dir = os.path.join(dataset_dir, DATA_VAL_SEG_ANNO_DIR)
+meta_dir = os.path.join(DATA_MAIN_DIR, DATA_TEST_META_DIR)
+img_dir = DATA_TEST_LOG_DIR
 
 
 

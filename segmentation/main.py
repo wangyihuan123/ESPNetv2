@@ -260,6 +260,12 @@ def trainValidateSegmentation(args):
 python main.py  --inWidth 1024 --inHeight 512 --txt_data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/ \
 --image_data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/train1k_image \
 --label_data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/train1k_seganno --classes 2
+
+
+python main.py  --inWidth 1024 --inHeight 512 --txt_data_dir /media/benw/Data/data/aws_log_data/train24k_1024x512 \
+--image_data_dir /media/benw/Data/data/aws_log_data/train24k_1024x512/train24k_image \
+--label_data_dir /media/benw/Data/data/aws_log_data/train24k_1024x512/train24k_seganno --classes 2
+
 '''
 
 if __name__ == '__main__':
