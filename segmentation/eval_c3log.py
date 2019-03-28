@@ -82,8 +82,8 @@ def evaluateModel(args, model, image_list):
 
 def main(args):
     # read all the images in the folder
-    image_list = glob.glob(args.data_dir + os.sep + '*.' + args.img_extn)
-
+    # image_list = glob.glob(args.data_dir + os.sep + '*.' + args.img_extn)
+    image_list = ["./data/179461a2-68e9-4a13-99e3-66f2f5904c7b_13922-mycrop.png"]
     modelA = net.EESPNet_Seg(args.classes, s=args.s)
     if not os.path.isfile(args.pretrained):
         print('Pre-trained model file does not exist. Please check ./pretrained_models folder')
@@ -107,6 +107,9 @@ def main(args):
 '''
 CUDA_VISIBLE_DEVICES=0 \
 python eval_c3log.py --s 1.0 --colored True --pretrained ./results_espnetv2_1/model_best.pth --data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/val100_image
+
+jetson:
+python eval_c3log.py --s 1.0 --colored True --pretrained ./results_espnetv2_1/model_best.pth
 '''
 if __name__ == '__main__':
     parser = ArgumentParser()

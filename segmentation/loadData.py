@@ -70,12 +70,11 @@ class LoadData:
                 # print(label_file)
                 # print(img_file)
                 label_img = cv2.imread(label_file, 0)
-                print(label_file)
                 unique_values = np.unique(label_img)
                 # print(unique_values)
                 # if you have 255 label in your label files, map it to the background class (19) in the Cityscapes dataset
                 if 255 in unique_values:
-	                label_img[label_img==255] = 19
+	                label_img[label_img==255] = 0
                 
                 max_val = max(unique_values)
                 min_val = min(unique_values)
@@ -132,7 +131,7 @@ class LoadData:
         return_val = self.readFile('train.txt', self.image_data_dir , self.label_data_dir, True)
 
         print('Processing validation data')
-        return_val1 = self.readFile('val.txt', self.txt_dir + "val_image", self.txt_dir + "/val_seganno")
+        return_val1 = self.readFile('val.txt', self.txt_dir + "/val_image", self.txt_dir + "/val_seganno")
 
         print('loadData: Pickling data')
         if return_val == 0 and return_val1 == 0:
