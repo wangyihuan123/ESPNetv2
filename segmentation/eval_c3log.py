@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 from cnn import SegmentationModel as net
 from torch import nn
 import sys, os
-os.environ["CUDA_VISIBLE_DEVICES"]="0"
+# os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 #============================================
 __author__ = "Sachin Mehta"
@@ -27,6 +27,7 @@ def evaluateModel(args, model, image_list):
     std = [45.3192215, 46.15289307, 44.91483307]
 
     model.eval()
+    print(image_list)
     for i, imgName in enumerate(image_list):
         img = cv2.imread(imgName)
         if args.overlay:
@@ -48,7 +49,9 @@ def evaluateModel(args, model, image_list):
         img_tensor = torch.from_numpy(img)
         img_tensor = torch.unsqueeze(img_tensor, 0)  # add a batch dimension
         if args.gpu:
+            print("start cuda")
             img_tensor = img_tensor.cuda()
+        print("inference...")
         img_out = model(img_tensor)
 
         classMap_numpy = img_out[0].max(0)[1].byte().cpu().data.numpy()
@@ -84,13 +87,15 @@ def main(args):
     # read all the images in the folder
     # image_list = glob.glob(args.data_dir + os.sep + '*.' + args.img_extn)
     image_list = ["./data/179461a2-68e9-4a13-99e3-66f2f5904c7b_13922-mycrop.png"]
-    modelA = net.EESPNet_Seg(args.classes, s=args.s)
+    modelA = net.EESPNet_Seg(args.classes, s=args.s, pretrained=args.pretrained)
     if not os.path.isfile(args.pretrained):
         print('Pre-trained model file does not exist. Please check ./pretrained_models folder')
         exit(-1)
     modelA = nn.DataParallel(modelA)
+    print("load_state_dict from pretrained")
     modelA.load_state_dict(torch.load(args.pretrained))
     if args.gpu:
+        print("set cuda model")
         modelA = modelA.cuda()
 
     # set to evaluation mode
