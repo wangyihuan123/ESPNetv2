@@ -127,7 +127,7 @@ def main(args):
     # read all the images in the folder
     image_list = glob.glob(args.data_dir + os.sep + '*.' + args.img_extn)
 
-    modelA = net.EESPNet_Seg(args.classes, s=args.s)
+    modelA = net.EESPNet_Seg(args.classes, s=args.s, pretrained=args.pretrained)
     if not os.path.isfile(args.pretrained):
         print('Pre-trained model file does not exist. Please check ./pretrained_models folder')
         exit(-1)
