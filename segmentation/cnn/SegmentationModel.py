@@ -15,35 +15,16 @@ from torch import nn
 class EESPNet_Seg(nn.Module):
     def __init__(self, classes=20, s=1, pretrained=None, gpus=1):
         super(EESPNet_Seg, self).__init__()
-
-        print("EESPNet_Seg init input: ", classes, s, pretrained)
         classificationNet = EESPNet(classes=1000, s=s)
-
         if gpus >=1:
-            print("nn.DataParallel")
             classificationNet = nn.DataParallel(classificationNet)
-
         # load the pretrained weights
         if pretrained:
             if not os.path.isfile(pretrained):
                 print('Weight file does not exist. Training without pre-trained weights')
             print('Model initialized with pretrained weights')
-
-            # # https://discuss.pytorch.org/t/solved-keyerror-unexpected-key-module-encoder-embedding-weight-in-state-dict/1686/3
-            # # original saved file with DataParallel
-            # state_dict = torch.load(pretrained)
-            # # create new OrderedDict that does not contain `module.`
-            # from collections import OrderedDict
-            # new_state_dict = OrderedDict()
-            # for k, v in state_dict.items():
-            #     name = k[7:]  # remove `module.`
-            #     new_state_dict[name] = v
-            # # load params
-            # classificationNet.load_state_dict(new_state_dict)
-
-
             classificationNet.load_state_dict(torch.load(pretrained))
-        print("load weight end")
+
         self.net = classificationNet.module
 
         del classificationNet
