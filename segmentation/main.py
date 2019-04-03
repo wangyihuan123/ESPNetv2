@@ -279,7 +279,7 @@ if __name__ == '__main__':
                                                                    'Change as per the GPU memory')
     parser.add_argument('--step_loss', type=int, default=100, help='Decrease learning rate after how many epochs.')
     parser.add_argument('--lr', type=float, default=5e-4, help='Initial learning rate')
-    parser.add_argument('--savedir', default='./results_espnetv2_', help='directory to save the results')
+    parser.add_argument('--savedir', default='./c3log_pretrained_', help='directory to save the results')
     parser.add_argument('--resume', type=str, default='', help='Use this flag to load last checkpoint for training')  #
     parser.add_argument('--classes', type=int, default=2, help='No of classes in the dataset. 2 for c3log')
     parser.add_argument('--cached_data_file', default='c3log.p', help='Cached file name')

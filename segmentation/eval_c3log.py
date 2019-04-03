@@ -106,7 +106,7 @@ def main(args):
 
 '''
 CUDA_VISIBLE_DEVICES=0 \
-python eval_c3log.py --s 1.0 --colored True --pretrained ./results_espnetv2_1/model_best.pth --data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/val100_image
+python eval_c3log.py --s 1.0 --colored True --pretrained ./c3log_pretrained_espnetv2_1/model_best.pth --data_dir /media/benw/Data/data/aws_log_data/train1k_800x800/val100_image
 '''
 if __name__ == '__main__':
     parser = ArgumentParser()
